@@ -6,6 +6,8 @@
       <img :src="item.path" />
       <h6>{{item.description}}</h6>
 
+
+
     </div>
   </section>
 </div>

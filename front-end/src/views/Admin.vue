@@ -8,6 +8,16 @@
   <div class="add">
     <div class="form">
       <input v-model="title" placeholder="Title">
+
+      <select v-model="region" placeholder="Region">
+        <option disabled value="">Please select one</option>
+        <option>Kanto</option>
+        <option>Jhoto</option>
+        <option>Hoenn</option>
+      </select>
+
+
+
       <input v-model="description" placeholder="Description">
 
       <p></p>
@@ -34,6 +44,14 @@
   </div>
   <div class="upload" v-if="findItem">
     <input v-model="findItem.title">
+    
+    <select v-model="region" placeholder="Region">
+      <option disabled value="">Please select one</option>
+      <option>Kanto</option>
+      <option>Jhoto</option>
+      <option>Hoenn</option>
+    </select>
+
     <input v-model="findItem.description">
 
     <p></p>
@@ -130,6 +148,7 @@ export default {
   data() {
   return {
     title: "",
+    region: "",
     description: "",
     file: null,
     addItem: null,
@@ -164,6 +183,7 @@ created() {
         let r1 = await axios.post('/api/photos', formData);
         let r2 = await axios.post('/api/items', {
           title: this.title,
+          region: this.region,
           description: this.description,
           path: r1.data.path
         });
@@ -201,6 +221,7 @@ async editItem(item) {
   try {
     await axios.put("/api/items/" + item._id, {
       title: this.findItem.title,
+      region: this.findItem.region,
       description: this.findItem.description,
     });
     this.findItem = null;

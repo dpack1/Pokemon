@@ -26,6 +26,11 @@ const upload = multer({
 // Create a scheme for items in the museum: a title and a path to an image.
 const itemSchema = new mongoose.Schema({
   title: String,
+  region: String,
+  type: String,
+  strength: String,
+  weakness: String,
+  moves: String,
   description: String,
   path: String,
 });
@@ -50,6 +55,12 @@ app.post('/api/photos', upload.single('photo'), async (req, res) => {
 app.post('/api/items', async (req, res) => {
   const item = new Item({
     title: req.body.title,
+    number: req.body.number,
+    region: req.body.region,
+    type: req.body.type,
+    strength: req.body.strength,
+    weakness: req.body.weakness,
+    moves: req.body.moves,
     description: req.body.description,
     path: req.body.path,
   });
@@ -92,7 +103,13 @@ app.put('/api/items/:id', async (req, res) => {
       _id: req.params.id
     });
     item.title = req.body.title;
-    item.description= req.body.description;
+    item.number = req.body.number;
+    item.region = req.body.region;
+    item.type = req.body.type;
+    item.strength = req.body.strength;
+    item.weakness = req.body.weakness;
+    item.moves = req.body.moves;
+    item.description = req.body.description;
 
     await item.save();
     res.sendStatus(200);
@@ -105,4 +122,3 @@ app.put('/api/items/:id', async (req, res) => {
 
 
 app.listen(3005, () => console.log('Server listening on port 3005!'));
-
